@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+          "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+          "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+<session-factory>
+	<property name="connection.url">jdbc:mariadb://192.168.64.5:3306/gate-db</property>
+	<property name="connection.characterEncoding">UTF-8</property>
+	<property name="connection.username">halim</property>
+	<property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
+	<property name="dialect">org.hibernate.dialect.MariaDB103Dialect</property>
+	<property name="connection.password">halimadmin</property>
+	<property name="hbm2ddl.auto">validate</property>
+
+        <!-- Disable second-level cache. -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+        <property name="cache.use_query_cache">false</property>
+        <property name="cache.use_minimal_puts">false</property>
+        <property name="max_fetch_depth">3</property>
+
+        <!-- Use the C3P0 connection pool. -->
+        <property name="hibernate.c3p0.min_size">1</property>
+        <property name="hibernate.c3p0.max_size">5</property>
+        <property name="hibernate.c3p0.timeout">1800</property>
+        <property name="hibernate.c3p0.idle_test_period">900</property>
+        <!-- <property name="hibernate.c3p0.testConnectionOnCheckout">true</property> -->
+
+    <property name="hibernate.transaction.coordinator_class">jdbc</property>
+    <property name="physical_naming_strategy">de.tuclausthal.submissioninterface.persistence.PhysicalNamingStrategy</property>
+    <!--  thread is the short name for
+      org.hibernate.context.ThreadLocalSessionContext
+      and let Hibernate bind the session automatically to the thread
+    -->
+    <property name="current_session_context_class">thread</property>
+    <!-- this will show us all sql statements -->
+    <property name="hibernate.show_sql">true</property>
+ </session-factory>
+</hibernate-configuration>
