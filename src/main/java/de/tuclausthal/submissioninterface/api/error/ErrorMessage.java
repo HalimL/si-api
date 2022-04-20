@@ -3,18 +3,18 @@ package de.tuclausthal.submissioninterface.api.error;
 
 public class ErrorMessage {
 
-    private String errorMessage;
+    private String message;
 
-    public ErrorMessage( String errorMessage) {
+    public ErrorMessage( String message) {
 
-        this.errorMessage = errorMessage;
+        this.message = message;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

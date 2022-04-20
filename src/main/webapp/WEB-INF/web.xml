@@ -68,7 +68,7 @@
   </context-param>
   <context-param>
     <param-name>publicKeyFilePath</param-name>
-    <param-value>/Users/halim/HALIM/Informatikstudium/8-Semester/BachelorArbeit/si/publickey.pem</param-value>
+    <param-value>/Users/halim/HALIM/Informatikstudium/8-Semester/workspace/si-api/publickey.pem</param-value>
   </context-param>
   <listener> <!-- must be the first listener! -->
     <listener-class>de.tuclausthal.submissioninterface.util.ContextConfigurationListener</listener-class>

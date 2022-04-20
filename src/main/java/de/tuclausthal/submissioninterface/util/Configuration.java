@@ -150,6 +150,7 @@ public class Configuration {
             publicKey = (RSAPublicKey) kf.generatePublic(keySpec);
 
         } catch (IOException e) {
+            e.printStackTrace();
             throw new RuntimeException("No public key .pem file found!");
         } catch (NoSuchAlgorithmException | InvalidKeySpecException exception ) {
             throw new RuntimeException("Problem reading public key");
