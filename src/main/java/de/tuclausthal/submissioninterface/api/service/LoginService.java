@@ -1,6 +1,5 @@
 package de.tuclausthal.submissioninterface.api.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import de.tuclausthal.submissioninterface.api.error.ErrorMessage;
 import de.tuclausthal.submissioninterface.api.oauthconfig.GateClientConfig;
@@ -40,31 +39,7 @@ public class LoginService {
     public Response getToken(GateClientConfig gateClientConfig) throws IOException {
         RequestBody requestBody = RequestBody.create("client_id=" + gateClientConfig.getClientId() + "&device_code=" + gateClientConfig.getDeviceCode() + "&grant_type=" + gateClientConfig.getDeviceCodeGrantType(), mediaType);
         Request request = buildPostRequest(TOKEN_ENDPOINT, requestBody);
-        okhttp3.Response clientResponse;
-
-        try {
-            clientResponse = client.newCall(request).execute();
-        } catch (ConnectException e) {
-            String message = "Der Authorization Server ist nicht gestartet";
-            ErrorMessage errorMessage = new ErrorMessage(message);
-            throw new WebApplicationException(Response.status(Response.Status.SERVICE_UNAVAILABLE)
-                    .entity(errorMessage).build());
-        }
-
-        int statusCode = clientResponse.code();
-        String response = clientResponse.body().string();
-
-        if (statusCode != 200) {
-            throw new WebApplicationException(Response.status(statusCode)
-                    .entity(response).build());
-        }
-
-        final ObjectNode node = new ObjectMapper().readValue(response, ObjectNode.class);
-        return Response
-                .ok()
-                .header(AUTHORIZATION, BEARER + " " + node.path("access_token").asText())
-                .entity(response)
-                .build();
+        return getResponse(request);
     }
 
     public Response refreshToken(ObjectNode jsonBody) throws IOException {
@@ -74,30 +49,7 @@ public class LoginService {
 
         RequestBody requestBody = RequestBody.create("client_id=" + clientId + "&grant_type=" + grantType + "&refresh_token=" + refreshToken, mediaType);
         Request request = buildPostRequest(TOKEN_ENDPOINT, requestBody);
-        okhttp3.Response clientResponse;
-
-        try {
-            clientResponse = client.newCall(request).execute();
-        } catch (ConnectException e) {
-            String message = "Der Authorization Server ist nicht gestartet";
-            ErrorMessage errorMessage = new ErrorMessage(message);
-            throw new WebApplicationException(Response.status(Response.Status.SERVICE_UNAVAILABLE)
-                    .entity(errorMessage).build());
-        }
-        int statusCode = clientResponse.code();
-        String response = clientResponse.body().string();
-
-        if (statusCode != 200) {
-            throw new WebApplicationException(Response.status(statusCode)
-                    .entity(response).build());
-        }
-
-        final ObjectNode node = new ObjectMapper().readValue(response, ObjectNode.class);
-        return Response
-                .ok()
-                .header(AUTHORIZATION, BEARER + " " + node.path("access_token").asText())
-                .entity(response)
-                .build();
+        return getResponse(request);
     }
 
     public Response getLoggedInUserInfo(String bearerToken) throws IOException {
