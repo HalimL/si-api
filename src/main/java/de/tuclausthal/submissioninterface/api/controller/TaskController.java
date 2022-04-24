@@ -46,6 +46,19 @@ public class TaskController {
 
 
     /**
+     * Rest Endpoint to get tasks that havent reached their deadline by user id
+     * GET http://localhost:{port}/{contextPath}/api/tasks/user/{userId}
+     * @param userId the user id
+     * @return a Response Entity containing the list of tasks that have'nt reached their deadline
+     */
+    @GET
+    @Path("/user/{userId}/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAvailableTasks(@PathParam("userId") int userId) {
+        return  taskService.getAvailableTasks(userId);
+    }
+
+    /**
      * Rest Endpoint to get a task by id
      * GET http://localhost:{port}/{contextPath}/api/tasks/{taskId}
      * @param taskId the task id

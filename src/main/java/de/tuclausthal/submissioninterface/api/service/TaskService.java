@@ -10,7 +10,9 @@ import de.tuclausthal.submissioninterface.persistence.dao.UserDAOIf;
 import de.tuclausthal.submissioninterface.persistence.datamodel.Lecture;
 import de.tuclausthal.submissioninterface.persistence.datamodel.Participation;
 import de.tuclausthal.submissioninterface.persistence.datamodel.ParticipationRole;
+import de.tuclausthal.submissioninterface.persistence.datamodel.Student;
 import de.tuclausthal.submissioninterface.persistence.datamodel.Task;
+import de.tuclausthal.submissioninterface.persistence.datamodel.TaskGroup;
 import de.tuclausthal.submissioninterface.persistence.datamodel.User;
 import de.tuclausthal.submissioninterface.util.Configuration;
 import de.tuclausthal.submissioninterface.util.Util;
@@ -20,8 +22,11 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import java.io.File;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TaskService {
 
@@ -109,6 +114,68 @@ public class TaskService {
                 .build();
 
     }
+
+
+    public Response getAvailableTasks(int userId) {
+
+        User user = userDAO.getUser(userId);
+
+        if (user == null) {
+            message = "User nicht gefunden";
+            ErrorMessage errorMessage = new ErrorMessage(message);
+
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity(errorMessage).build());
+        }
+
+        if (Configuration.getInstance().isMatrikelNumberMustBeEnteredManuallyIfMissing() && !(user instanceof Student)) {
+            message = "Bitte loggen Sie sich bei GATE ein und geben Sie Ihre Matrikelnummer ein";
+            ErrorMessage errorMessage = new ErrorMessage(message);
+
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity(errorMessage).build());
+        }
+
+        if (user instanceof Student) {
+            Student student = (Student) user;
+
+            if (student.getStudiengang() == null) {
+                message = "Bitte loggen Sie sich bei GATE ein und geben Sie Ihren Studiengang ein";
+                ErrorMessage errorMessage = new ErrorMessage(message);
+
+                throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                        .entity(errorMessage).build());
+            }
+        }
+
+        if (!user.getLectureParticipant().isEmpty()) {
+
+            Set<Participation> participationList = user.getLectureParticipant();
+
+            List<Task> availableTasks = participationList.stream()
+                    .map(Participation::getLecture)
+                    .map(Lecture::getTaskGroups)
+                    .flatMap(Collection::stream)
+                    .map(TaskGroup::getTasks)
+                    .flatMap(Collection::stream)
+                    .filter(task -> task.getStart().before(new Date()))
+                    .filter(task -> task.getDeadline().after(new Date()))
+                    .collect(Collectors.toList());
+
+            return Response
+                    .ok()
+                    .entity(availableTasks)
+                    .build();
+        }
+
+        message = "Sie sind zu keiner Veranstaltung angemeldet, Sie können sich über GATE zu einer Veranstaltung anmelden.";
+        ErrorMessage errorMessage = new ErrorMessage(message);
+
+        throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                .entity(errorMessage).build());
+    }
+
+
 
     public Response getTaskFile(int taskId) {
 

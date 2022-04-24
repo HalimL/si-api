@@ -5,7 +5,7 @@ import org.hibernate.Session;
 
 public class HibernateApiSessionManager {
 
-    static private Session session = null;
+    static private Session session;
 
     /**
      * Singleton to make sure only one instance of Hibernate session is created
