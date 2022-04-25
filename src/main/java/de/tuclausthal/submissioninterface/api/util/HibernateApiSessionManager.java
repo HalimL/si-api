@@ -5,17 +5,14 @@ import org.hibernate.Session;
 
 public class HibernateApiSessionManager {
 
-    static private Session session;
+    private static Session session;
 
-    /**
-     * Singleton to make sure only one instance of Hibernate session is created
-     *
-     * @return the hibernate session
-     */
     public static Session getSession() {
-        if (session == null) {
-            session = HibernateSessionHelper.getSessionFactory().openSession();
-        }
+        session = HibernateSessionHelper.getSessionFactory().openSession();
         return session;
+    }
+
+    public static void closeSession() {
+        HibernateSessionHelper.getSessionFactory().getCurrentSession().close();
     }
 }
