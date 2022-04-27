@@ -160,6 +160,7 @@ public class TaskService {
                     .flatMap(Collection::stream)
                     .filter(task -> task.getStart().before(new Date()))
                     .filter(task -> task.getDeadline().after(new Date()))
+                    .filter(task -> !task.isSCMCTask())
                     .collect(Collectors.toList());
 
             return Response
