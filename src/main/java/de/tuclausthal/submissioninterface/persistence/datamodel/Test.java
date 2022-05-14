@@ -29,6 +29,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.tuclausthal.submissioninterface.testframework.tests.AbstractTest;
 
 /**
@@ -85,6 +86,7 @@ public abstract class Test implements Serializable {
 	 */
 	@ManyToOne
 	@JoinColumn(name = "taskid", nullable = false)
+	@JsonIgnore
 	public Task getTask() {
 		return task;
 	}
@@ -167,6 +169,7 @@ public abstract class Test implements Serializable {
 	}
 
 	@Transient
+	@JsonIgnore
 	abstract public AbstractTest getTestImpl();
 
 	/**
@@ -184,5 +187,6 @@ public abstract class Test implements Serializable {
 	}
 
 	@Transient
+	@JsonIgnore
 	abstract public boolean TutorsCanRun();
 }

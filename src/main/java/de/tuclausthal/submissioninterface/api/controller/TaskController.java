@@ -66,7 +66,7 @@ public class TaskController {
      */
     @GET
     @Path("/{taskId}")
-    @Produces("application/zip")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response getTaskFile(@PathParam("taskId") int taskId) {
         return  taskService.getTaskFile(taskId);
     }

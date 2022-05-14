@@ -56,6 +56,21 @@ public class SubmissionController {
         return submissionService.getSubmissions(participationId);
     }
 
+    /**
+     * Rest Endpoint to get the user submission for a task
+     * GET http://localhost:{port}/{contextPath}/api/submissions/task/{taskId}/user/{userId}
+     * @param taskId the task id
+     * @param userId the user id
+     * @return a Response Entity containing the user submission for a task
+     */
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("task/{taskId}/user/{userId}")
+    public Response getSubmissionForTaskByUserId(@PathParam("taskId") int taskId, @PathParam("userId") int userId) {
+        return submissionService.getUserSubmissionForTask(taskId, userId);
+    }
+
 
     /**
      * Rest Endpoint to submit a submission for a task

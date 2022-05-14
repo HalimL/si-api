@@ -8,10 +8,12 @@ import de.tuclausthal.submissioninterface.persistence.dao.SubmissionDAOIf;
 import de.tuclausthal.submissioninterface.persistence.dao.TaskDAOIf;
 import de.tuclausthal.submissioninterface.persistence.dao.UserDAOIf;
 import de.tuclausthal.submissioninterface.persistence.dao.impl.LogDAO;
+import de.tuclausthal.submissioninterface.persistence.datamodel.Lecture;
 import de.tuclausthal.submissioninterface.persistence.datamodel.LogEntry;
 import de.tuclausthal.submissioninterface.persistence.datamodel.Participation;
 import de.tuclausthal.submissioninterface.persistence.datamodel.Submission;
 import de.tuclausthal.submissioninterface.persistence.datamodel.Task;
+import de.tuclausthal.submissioninterface.persistence.datamodel.TaskGroup;
 import de.tuclausthal.submissioninterface.persistence.datamodel.Test;
 import de.tuclausthal.submissioninterface.persistence.datamodel.UMLConstraintTest;
 import de.tuclausthal.submissioninterface.persistence.datamodel.User;
@@ -32,6 +34,7 @@ import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -122,6 +125,44 @@ public class SubmissionService {
         return Response
                 .ok()
                 .entity(submissions)
+                .build();
+
+    }
+
+    public Response getUserSubmissionForTask(int taskId, int userId) {
+
+        Task task = taskDAO.getTask(taskId);
+        User user = userDAO.getUser(userId);
+
+
+        if (task == null) {
+            message = "Aufgabe nicht gefunden";
+            ErrorMessage errorMessage = new ErrorMessage(message);
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity(errorMessage).build());
+        }
+
+        Participation participation = participationDAO.getParticipation(user, task.getTaskGroup().getLecture());
+
+        if (participation == null) {
+            message = "Nicht gefunden";
+            ErrorMessage errorMessage = new ErrorMessage(message);
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity(errorMessage).build());
+        }
+
+
+
+        Submission submissionForTask = submissionDAO.getAllSubmissions(participation)
+                .stream()
+                .filter(x -> (taskId == x.getTask().getTaskid()))
+                .findAny()
+                .orElse(null);
+
+
+        return Response
+                .ok()
+                .entity(submissionForTask == null ? "{}" : submissionForTask)
                 .build();
 
     }
