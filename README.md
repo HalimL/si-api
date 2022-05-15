@@ -19,7 +19,7 @@ below are the additional steps involved to set up the GATE API.
 - The GATE client must be configured to support the OAuth 2.0 device-code-flow
 - Configure identity brokering for the authorization server with the identity provider of choice 
   - SAML2.0 involves exchanging the metadata config with the authorization server
-  - LDAP involves providing the connection url to the server
+  - LDAP involves providing the connection url of the LDAP server
   
 ### Configuration files
 
