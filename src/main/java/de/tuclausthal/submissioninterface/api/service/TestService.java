@@ -13,8 +13,10 @@ import de.tuclausthal.submissioninterface.persistence.datamodel.Participation;
 import de.tuclausthal.submissioninterface.persistence.datamodel.Submission;
 import de.tuclausthal.submissioninterface.persistence.datamodel.Task;
 import de.tuclausthal.submissioninterface.persistence.datamodel.Test;
+import de.tuclausthal.submissioninterface.persistence.datamodel.TestResult;
 import de.tuclausthal.submissioninterface.persistence.datamodel.User;
 import de.tuclausthal.submissioninterface.testframework.TestExecutor;
+import de.tuclausthal.submissioninterface.testframework.executor.TestExecutorTestResult;
 import de.tuclausthal.submissioninterface.testframework.tests.TestTask;
 import org.hibernate.LockOptions;
 import org.hibernate.Session;
@@ -107,10 +109,12 @@ public class TestService {
         testCountDAO.canSeeResultAndIncrementCounterTransaction(test, submission);
         tx.commit();
 
+        TestExecutorTestResult testExecutorTestResult = resultFuture.testResult.get();
+        TestResult testResult = new TestResult(test.getId(), test, submission, testExecutorTestResult.isTestPassed(), testExecutorTestResult.getTestOutput());
 
         return Response
                 .ok()
-                .entity(resultFuture.testResult.get())
+                .entity(testResult)
                 .build();
 
     }

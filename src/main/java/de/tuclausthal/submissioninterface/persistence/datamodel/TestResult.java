@@ -43,6 +43,16 @@ public class TestResult implements Serializable {
 	private boolean passedTest;
 	private String testOutput = "no output available yet";
 
+	public TestResult() {}
+
+	public TestResult(int id, Test test, Submission submission, boolean passedTest, String testOutput) {
+		this.id = id;
+		this.test = test;
+		this.submission = submission;
+		this.passedTest = passedTest;
+		this.testOutput = testOutput;
+	}
+
 	/**
 	 * @return the passedTest
 	 */
