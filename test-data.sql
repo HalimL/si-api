@@ -58,7 +58,9 @@ INSERT INTO `participations` (`id`, `role`, `groupid`, `lectureid`, `uid`) VALUE
 (4, 'NORMAL', 11, 12, 6),
 (354, 'NORMAL', 222, 10, 6),
 (4, 'NORMAL', 11, 12, 7),
-(354, 'NORMAL', 222, 10, 7);
+(354, 'NORMAL', 222, 10, 7),
+(4, 'NORMAL', 11, 12, 8),
+(354, 'NORMAL', 222, 10, 8);
 
 
 --
@@ -94,13 +96,14 @@ INSERT INTO `tests` (`DTYPE`, `id`, `forTutors`, `giveDetailsToStudents`, `needs
 --
 
 INSERT INTO `users` (`uid`, `username`, `email`, `firstName`, `lastName`, `superUser`, `matrikelno`, `studiengang`, `lastLoggedIn`) VALUES
-(1, `gateTester1`, `gatetester1@gmail.com`, `Tester1`, `Gate`, b'0', 11860611, 'Informatik', '2022-05-16 20:08:49'),
-(2, `gateTester2`, `gatetester2@gmail.com`, `Tester2`, `Gate`, b'0', 11860612, 'Biologie', '2022-05-16 20:08:49'),
-(3, `gateTester3`, `gatetester3@gmail.com`, `Tester3`, `Gate`, b'0', 11860613, 'Informatik plus Computerlinguistik', '2022-05-16 20:08:49'),
-(4, `gateTester4`, `gatetester4@gmail.com`, `Tester4`, `Gate`, b'0', 11860614, 'Mathematik', '2022-05-16 20:08:49'),
-(5, `gateTester5`, `gatetester5@gmail.com`, `Tester5`, `Gate`, b'0', 11860615, 'Sport', '2022-05-16 20:08:49'),
-(6, `gateTester6`, `gatetester6@gmail.com`, `Tester6`, `Gate`, b'0', 11860616, 'Physik', '2022-05-16 20:08:49'),
-(7, `gateTester7`, `gatetester7@gmail.com`, `Tester7`, `Gate`, b'0', 11860617, 'Informatik plus Mathematik', '2022-05-16 20:08:49');
+(1, `gateTester1`, `gatetester1@lmu.de`, `Tester1`, `Gate`, b'0', 11860611, 'Informatik', '2022-05-16 20:08:49'),
+(2, `gateTester2`, `gatetester2@lmu.de`, `Tester2`, `Gate`, b'0', 11860612, 'Biologie', '2022-05-16 20:08:49'),
+(3, `gateTester3`, `gatetester3@lmu.de`, `Tester3`, `Gate`, b'0', 11860613, 'Informatik plus Computerlinguistik', '2022-05-16 20:08:49'),
+(4, `gateTester4`, `gatetester4@lmu.de`, `Tester4`, `Gate`, b'0', 11860614, 'Mathematik', '2022-05-16 20:08:49'),
+(5, `gateTester5`, `gatetester5@lmu.de`, `Tester5`, `Gate`, b'0', 11860615, 'Sport', '2022-05-16 20:08:49'),
+(6, `gateTester6`, `gatetester6@lmu.de`, `Tester6`, `Gate`, b'0', 11860616, 'Physik', '2022-05-16 20:08:49'),
+(7, `gateTester7`, `gatetester7@lmu.de`, `Tester7`, `Gate`, b'0', 11860617, 'Informatik plus Mathematik', '2022-05-16 20:08:49'),
+(8, `gateTester8`, `gatetester8@lmu.de`, `Tester8`, `Gate`, b'0', 11860618, 'Chemie', '2022-05-16 20:08:49');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
