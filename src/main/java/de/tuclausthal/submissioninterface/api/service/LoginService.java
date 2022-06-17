@@ -43,9 +43,9 @@ public class LoginService {
     }
 
     public Response refreshToken(ObjectNode jsonBody) throws IOException {
-        String clientId = jsonBody.path("client_id").asText();
-        String grantType = jsonBody.path("grant_type").asText();
-        String refreshToken = jsonBody.path("refresh_token").asText();
+        String clientId = jsonBody.path("clientId").asText();
+        String refreshToken = jsonBody.path("refreshToken").asText();
+        String grantType = jsonBody.path("grantType").asText();
 
         RequestBody requestBody = RequestBody.create("client_id=" + clientId + "&grant_type=" + grantType + "&refresh_token=" + refreshToken, mediaType);
         Request request = buildPostRequest(TOKEN_ENDPOINT, requestBody);

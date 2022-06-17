@@ -22,9 +22,11 @@ import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 public class LoginController {
 
     private LoginService loginService;
+    private ObjectMapper mapper;
 
     public LoginController() {
         this.loginService = new LoginService();
+        this.mapper = new ObjectMapper();
     }
 
     /**
@@ -38,7 +40,6 @@ public class LoginController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response authorize(String body) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
         GateClientConfig gateClientConfig = mapper.readValue(body, GateClientConfig.class);
 
         return loginService.authorizeClient(gateClientConfig);
@@ -56,7 +57,6 @@ public class LoginController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getToken(String body) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
         GateClientConfig gateClientConfig = mapper.readValue(body, GateClientConfig.class);
 
         return loginService.getToken(gateClientConfig);
@@ -72,7 +72,7 @@ public class LoginController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response refreshToken(String body) throws IOException {
-        ObjectNode node = new ObjectMapper().readValue(body, ObjectNode.class);
+        ObjectNode node = mapper.readValue(body, ObjectNode.class);
 
         return loginService.refreshToken(node);
 
