@@ -45,22 +45,22 @@ INSERT INTO `lectures` (`id`, `gradingMethod`, `name`, `requiresAbhnahme`, `seme
 --
 
 INSERT INTO `participations` (`id`, `role`, `groupid`, `lectureid`, `uid`) VALUES
-(4, 'NORMAL', 11, 12, 1),
-(354, 'NORMAL', 222, 10, 1),
-(4, 'NORMAL', 11, 12, 2),
-(354, 'NORMAL', 222, 10, 2),
-(4, 'NORMAL', 11, 12, 3),
-(354, 'NORMAL', 222, 10, 3),
-(4, 'NORMAL', 11, 12, 4),
-(354, 'NORMAL', 222, 10, 4),
-(4, 'NORMAL', 11, 12, 5),
-(354, 'NORMAL', 222, 10, 5),
-(4, 'NORMAL', 11, 12, 6),
-(354, 'NORMAL', 222, 10, 6),
-(4, 'NORMAL', 11, 12, 7),
-(354, 'NORMAL', 222, 10, 7),
-(4, 'NORMAL', 11, 12, 8),
-(354, 'NORMAL', 222, 10, 8);
+(1, 'NORMAL', 11, 12, 1),
+(2, 'NORMAL', 222, 10, 1),
+(3, 'NORMAL', 11, 12, 2),
+(5, 'NORMAL', 222, 10, 2),
+(6, 'NORMAL', 11, 12, 3),
+(7, 'NORMAL', 222, 10, 3),
+(8, 'NORMAL', 11, 12, 4),
+(9, 'NORMAL', 222, 10, 4),
+(10, 'NORMAL', 11, 12, 5),
+(11, 'NORMAL', 222, 10, 5),
+(12, 'NORMAL', 11, 12, 6),
+(13, 'NORMAL', 222, 10, 6),
+(14, 'NORMAL', 11, 12, 7),
+(15, 'NORMAL', 222, 10, 7),
+(16, 'NORMAL', 11, 12, 8),
+(17, 'NORMAL', 222, 10, 8);
 
 
 --
